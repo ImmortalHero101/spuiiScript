@@ -114,8 +114,8 @@ function $prop(thisArg, obj) {
 
     var toWindow = [ // Objects that will be added to the window object
         _prop(function $() { // Main function with properties
-            let args = arguments, argsLen = args.length;
-            let useArg = args[0];
+            var args = arguments, argsLen = args.length;
+            var useArg = args[0];
             switch (typeof useArg) {
                 case 'string': {
                     if (argsLen === 1) { // For getting a iVar-local-access variable
@@ -125,14 +125,14 @@ function $prop(thisArg, obj) {
                             throw "Variable '" + useArg + "' does not exist!";
                         }
                     } else if (argsLen >= 2) { // For setting a variable
-                        let scope = _setScope(args[2]);
+                        var scope = _setScope(args[2]);
                         iVar[scope][useArg] = args[1];
                         _save(scope);
                     }
                     break;
                 }
                 case "object": { // For bulk declarations
-                    let objKeys = Object.keys(useArg), scope = _setScope(args[1]);
+                    var objKeys = Object.keys(useArg), scope = _setScope(args[1]);
                     if (objKeys.length) {
                         objKeys.forEach(function(key){
                             iVar[scope][key] = useArg[key];
@@ -142,7 +142,7 @@ function $prop(thisArg, obj) {
                     break;
                 }
                 case "number": { // For indexed searching
-                    let scope = _setScope(args[1]), useKeys = Object.keys(iVar[scope]);
+                    var scope = _setScope(args[1]), useKeys = Object.keys(iVar[scope]);
                     return iVar[scope][useKeys[useArg - 1]];
                     break;
                 }
@@ -176,11 +176,11 @@ function $prop(thisArg, obj) {
                     /*
                     case 'object':{
                         if (!(value instanceof Array)) {
-                            let useKeys = Object.keys(value), mainKeys = Object.keys(iVar);
+                            var useKeys = Object.keys(value), mainKeys = Object.keys(iVar);
                             for (key in useKeys) {
                                 switch (useKeys[key]){
                                     case "$filter": {
-                                        let valArr = [], keyArr = [], indArr = [];
+                                        var valArr = [], keyArr = [], indArr = [];
                                         console.log(value, value.$filter);
                                         mainKeys.forEach(function(val, ind){
                                             if (value.$filter(iVar[scope][val], ind)) {
@@ -218,7 +218,7 @@ function $prop(thisArg, obj) {
             },
             map: function(func, scope) { // Applies the function to every variable in a scope
                 scope = _setScope(scope);
-                let useKeys = Object.keys(iVar[scope]);
+                var useKeys = Object.keys(iVar[scope]);
                 useKeys.forEach(function(key,ind){iVar[scope][key] = func(iVar[scope][key], ind)});
             },
             changeScope: function(name, fromScope, toScope) { // Changes the variable's scope
