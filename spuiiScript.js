@@ -1,3 +1,12 @@
+//
+// Polyfill
+//
+if(!Object.entries){Object.entries=function(r){var e=Object.keys(r),n=e.length,t=new Array(n);
+while(n--)t[n]=[e[n],r[e[n]]];return t}}if(!Array.from){Array.from=function(){var e=Object.prototype.toString;var c=function(r){return typeof r==="function"||e.call(r)==="[object Function]"};var n=function(r){var e=Number(r);if(isNaN(e)){return 0}if(e===0||!isFinite(e)){return e}return(e>0?1:-1)*Math.floor(Math.abs(e))};var t=Math.pow(2,53)-1;var l=function(r){var e=n(r);return Math.min(Math.max(e,0),t)};return function from(r){var e=this;var n=Object(r);if(r==null){throw new TypeError("Array.from requires an array-like object - not null or undefined")}var t=arguments.length>1?arguments[1]:void undefined;var a;if(typeof t!=="undefined"){if(!c(t)){throw new TypeError("Array.from: when provided, the second argument must be a function")}if(arguments.length>2){a=arguments[2]}}var i=l(n.length);var o=c(e)?Object(new e(i)):new Array(i);var f=0;var u;while(f<i){u=n[f];if(t){o[f]=typeof a==="undefined"?t(u,f):t.call(a,u,f)}else{o[f]=u}f+=1}o.length=i;return o}}()}
+//
+//
+//
+
 var l = "local", g = "global";
 if (!Function.prototype.$proto) {
     Function.prototype.$proto = function() {
@@ -36,6 +45,7 @@ function $prop(thisArg, obj) {
 }
 
 (function(window){
+	use spuiiDat;
     function SpuiiVar(){
         this.global = {};
         this.local = {};
@@ -44,7 +54,6 @@ function $prop(thisArg, obj) {
 
     var iVar = new SpuiiVar(); // Constructing Variable Store at local level
 
-    use spuiiDat;
     (spuiiDat['iVar-local'+ RawUserID] ? iVar.local = JSON.parse(spuiiDat['iVar-local'+ RawUserID]) : spuiiDat['iVar-local'+ RawUserID] = JSON.stringify(iVar.local));
     (spuiiDat['iVar-global'] ? iVar.global = JSON.parse(spuiiDat['iVar-global']) : spuiiDat['iVar-global'] = JSON.stringify(iVar.global));
     if (spuiiDat['iVar-dat'+ RawUserID]) {
@@ -67,7 +76,6 @@ function $prop(thisArg, obj) {
     function _save(type) {
         type = type.toLowerCase() || 'all';
         type = (type == "all" || type == g || type == l || type == 'dat'? type : 'all');
-        use spuiiDat;
         var datInd = [l,g,'dat'];
         if (type === 'all') {
             spuiiDat['iVar-local'+ RawUserID] = JSON.stringify(iVar.local);
@@ -242,4 +250,4 @@ function $prop(thisArg, obj) {
             window[func.name] = func;
         }
     });
-})(window);
+})(this);
