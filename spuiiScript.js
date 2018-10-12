@@ -6,8 +6,7 @@ while(n--)t[n]=[e[n],r[e[n]]];return t}}if(!Array.from){Array.from=function(){va
 //
 //
 //
-
-var l = "local", g = "global";
+var l = "local", g = "global", echoGlobalObj = this;
 if (!Function.prototype.$proto) {
     Function.prototype.$proto = function() {
         var args = arguments, func = this;
@@ -35,16 +34,16 @@ function $prop(thisArg, obj) {
         		thisArg[useKeys[key]] = obj[useKeys[key]];
             }
         } else {
-			window[Object.keys(thisArg)[0]] = thisArg[Object.entries(thisArg)[0][0]];
+			echoGlobalObj[Object.keys(thisArg)[0]] = thisArg[Object.entries(thisArg)[0][0]];
 			for (key in useKeys) {
-				console.log(key, Object.keys(thisArg)[0], window[Object.keys(thisArg)[0]][useKeys[key]], obj[useKeys[key]]); 
-                window[Object.keys(thisArg)[0]][useKeys[key]] = obj[useKeys[key]];
+				console.log(key, Object.keys(thisArg)[0], echoGlobalObj[Object.keys(thisArg)[0]][useKeys[key]], obj[useKeys[key]]); 
+                echoGlobalObj[Object.keys(thisArg)[0]][useKeys[key]] = obj[useKeys[key]];
             }
         }
     }
 }
 
-(function(window){
+(function(){
 	use spuiiDat;
     function SpuiiVar(){
         this.global = {};
@@ -246,8 +245,8 @@ function $prop(thisArg, obj) {
     ];
 
     toWindow.forEach(function(func){ // Adds each function to the Window object
-        if (!window[func.name]) {
-            window[func.name] = func;
+        if (!echoGlobalObj[func.name]) {
+            echoGlobalObj[func.name] = func;
         }
     });
 })(this);
