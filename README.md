@@ -18,7 +18,7 @@ nth argument (scope \[string] (Case insensitive)) by using the predefined variab
 ```
 ### Creating a variable
 #### Single variable
-Using the `$` function, provide with two arguments (name \[string] and value \[any]) for creating local access variables and provide a third argument as scope.
+Using the `$` function, provide with two arguments (name \[string] and value \[any]) for creating local access variables and provide a third argument as [scope](#scope-function-argument).
 
 **Alternative:** `$.set(name [string], value [any], scope [string] (optional))`
 ##### Example:
@@ -30,7 +30,7 @@ Using the `$` function, provide with two arguments (name \[string] and value \[a
 < undefined
 ```
 #### Bulk creation
-Using the `$` function, provide with with one argument (object) for creating all the object's defined properties as local access variables and provide a second argument as the scope.
+Using the `$` function, provide with with one argument (object) for creating all the object's defined properties as local access variables and provide a second argument as the [scope](#scope-function-argument).
 ##### Example:
 ```js
 // Syntax: $(object, scope [string] (optional))
@@ -41,7 +41,7 @@ Using the `$` function, provide with with one argument (object) for creating all
 ```
 
 ### Accessing a variable
-Using the `$` function, provide with one argument (name \[string]) to get a local access variable. Scope argument not supported in this syntax to prevent any errors. Throws an error if variable does not exist. The **alternative** `$.get(name, scope)` can be used to access variables at respective scopes.
+Using the `$` function, provide with one argument (name \[string]) to get a local access variable. [Scope](#scope-function-argument) argument not supported in this syntax to prevent any errors. Throws an error if variable does not exist. The **alternative** `$.get(name, scope)` can be used to access variables at respective [scopes](#scope-function-argument).
 ##### Example
 ```js
 // Syntax: $(name [string])
