@@ -1,46 +1,44 @@
-//
 // Polyfill
-//
 if(!Object.entries){Object.entries=function(r){var e=Object.keys(r),n=e.length,t=new Array(n);
 while(n--)t[n]=[e[n],r[e[n]]];return t}}if(!Array.from){Array.from=function(){var e=Object.prototype.toString;var c=function(r){return typeof r==="function"||e.call(r)==="[object Function]"};var n=function(r){var e=Number(r);if(isNaN(e)){return 0}if(e===0||!isFinite(e)){return e}return(e>0?1:-1)*Math.floor(Math.abs(e))};var t=Math.pow(2,53)-1;var l=function(r){var e=n(r);return Math.min(Math.max(e,0),t)};return function from(r){var e=this;var n=Object(r);if(r==null){throw new TypeError("Array.from requires an array-like object - not null or undefined")}var t=arguments.length>1?arguments[1]:void undefined;var a;if(typeof t!=="undefined"){if(!c(t)){throw new TypeError("Array.from: when provided, the second argument must be a function")}if(arguments.length>2){a=arguments[2]}}var i=l(n.length);var o=c(e)?Object(new e(i)):new Array(i);var f=0;var u;while(f<i){u=n[f];if(t){o[f]=typeof a==="undefined"?t(u,f):t.call(a,u,f)}else{o[f]=u}f+=1}o.length=i;return o}}()}
 //
-//
-//
 var l = "local", g = "global", echoGlobalObj = this;
-if (!Function.prototype.$proto) {
-    Function.prototype.$proto = function() {
-        var args = arguments, func = this;
-        for (var i = 0;i < args.length; i++) {
-            if (Object.entries(args[i])[0].length % 2 === 0 && Object.keys(args[i])[0]) {
-                var objT = args[i];
-                var keys = Object.keys(objT);
-                keys.forEach(function(val,index){
-                    if(!func[val]){
-                        func.prototype[val] = objT[val];
-                    }
-                });
-            } else {
-                console.log("Unknown Input Method, please follow a following method:\n @param {Object} An object in a format {property: value} (Multiple property/value in a single Object accepted)");
-            }
-        }
-    }
-}
-function $prop(thisArg, obj) {
-    var useKeys = Object.keys(obj);
-    if (useKeys.length && thisArg) {
-        if (thisArg.name) {
-            for (key in useKeys) {
-                thisArg[useKeys[key]] = obj[useKeys[key]];
-            }
-        } else {
-            echoGlobalObj[Object.keys(thisArg)[0]] = thisArg[Object.entries(thisArg)[0][0]];
-            for (key in useKeys) { 
-                echoGlobalObj[Object.keys(thisArg)[0]][useKeys[key]] = obj[useKeys[key]];
-            }
-        }
-    }
-}
 
+// Function to set bulk prototype properties, accepts one argument
+function $proto(thisArg, obj) {
+  "use strict";
+	var objEntry = Object.entries(obj);
+	if (typeof thisArg !== "function" || (typeof thisArg === "object" && (thisArg === null || thisArg instanceof Array))) {
+	  throw "Unknown ``this`` arg for ``$oroto()`` function!";
+	}
+	if (objEntry.every(function(entry) { // Cheking if no blank property
+		return entry[0] && entry[1] ? true : false;
+	})) {
+		objEntry.forEach(function(entry){ // Adding properties
+			thisArg.prototype[entry[0]] = entry[1];
+		});
+	} else {
+		throw "Unknown Input Method, please follow a following method:\n@param {Object} An object in a format {property: value} (Multiple property/value in a single Object accepted)";
+	}
+}
+/*
+// Function to set bulk properties
+function $prop(thisArg, obj) {
+  var objKeys = Object.keys(obj);
+  if (useKeys.length && thisArg) {
+    if (thisArg.name) {
+      for (key in useKeys) {
+        thisArg[useKeys[key]] = obj[useKeys[key]];
+      }
+    } else {
+      echoGlobalObj[Object.keys(thisArg)[0]] = thisArg[Object.entries(thisArg)[0][0]];
+      for (key in useKeys) { 
+        echoGlobalObj[Object.keys(thisArg)[0]][useKeys[key]] = obj[useKeys[key]];
+      }
+    }
+  }
+}
+*/
 function checkUrl(url, type) {
     if (url) {
         if (type === 'img') {
