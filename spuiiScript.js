@@ -17,6 +17,7 @@ function $proto(thisArg, obj) {
 		objEntry.forEach(function(entry){ // Adding properties
 			thisArg.prototype[entry[0]] = entry[1];
 		});
+    return thisArg;
 	} else {
 		throw "Unknown Input Method, please follow a following method:\n@param {Object} An object in a format {property: value} (Multiple property/value in a single Object accepted)";
 	}
@@ -137,7 +138,7 @@ function checkUrl(url, type) {
 		this.stack = new Error().stack.replace(/Error\n/,"");
 	}
 
-    function Embed() {
+    var Embed = $proto(function() {
         var args = arguments[0],
                 author = args.a instanceof Array ? args.a : Array(args.a),
                 header = args.h || [],
@@ -198,9 +199,7 @@ function checkUrl(url, type) {
             icon_url: footer[1] || '',
             text: footer[0] || ''
         }
-    }
-    
-    Embed.$proto({
+    }, {
         add: function(component, arg1, arg2, arg3) {
 			if (component && typeof component == 'string') {
 				switch (component.toLowerCase()) {
