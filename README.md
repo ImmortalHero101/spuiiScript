@@ -1,6 +1,18 @@
 # spuiiScript for Echo
 A JavaScript library for the Echo bot on Discord that allows you to create and play with custom variables that are automatically saved to the server's database.
 
+- [Description](#description)
+- [Access](#access)
+- [Documentation](#documentation)
+  - [Scope](#scope-function-argument)
+  - [Creating a variable](#creating-a-variable)
+  - [Accessing a variable](#accessing-a-variable)
+  - [Finding a variable](#finding-a-variable)
+  - [Changing a variable's scope](#changing-a-variables-scope)
+  - [Mapping all variables](#mapping-all-variables)
+  - [Searching all variables](#searching-all-variables)
+  - [Embeds](#embeds)
+
 ## Description
 
 spuiiScript allows you to create and manage custom variables that are encapsulated in an object, allowing the user to manage them easily and apply various commands to it.
@@ -60,7 +72,7 @@ Using the `$` function, provide with one argument (name \[string]) to get a loca
 < Error: Variable 'h' does not exist in local scope!
 ```
 
-### Checking variable existence
+### Finding a variable
 Using the `$.exists` function, provide with two arguments (name \[string], ?scope \[string]) to get a Boolean value determining the existence of the variable in a scope. Do not try to take advantage of JavaScript's automatic value conversion to see if a variable exists or not because if a variable does not exist, an exception is thrown.
 ##### Example
 ```js
@@ -73,8 +85,8 @@ Using the `$.exists` function, provide with two arguments (name \[string], ?scop
 < false
 ```
 
-### Changing a variable's scope (Might get removed)
-Using the `$.changeScope` function, provide with three arguments (name \[string], fromScope \[string], toScope \[string]) to move a variable from one scope to another.
+### Changing a variable's scope
+(Temporary) Using the `$.changeScope` function, provide with three arguments (name \[string], fromScope \[string], toScope \[string]) to move a variable from one scope to another.
 ##### Example
 ```js
 // Syntax: $.changeScope(name [string], fromScope [string], toScope [string])
@@ -86,7 +98,7 @@ Using the `$.changeScope` function, provide with three arguments (name \[string]
 < Error: Variable 'a' does not exist in global scope!
 ```
 
-### Mapping every variable
+### Mapping all variables
 Using the `$.map` function, provide with two arguments (func \[function], ?scope \[string]) to apply the provided function to every variable on a scope. The first parameter of the function argument will be the value being passed and the second parameter will be the index.
 ##### Example
 ```js
@@ -100,7 +112,7 @@ Using the `$.map` function, provide with two arguments (func \[function], ?scope
 < undefined
 ```
 
-### Finding all variables with a value
+### Searching all variables
 Usiing the `$.find` function, provide with two arguments (value \[any], ?scope \[string]) to search every variable for the value. The function returns an object containing four properties (values, keys, indexes, and scope) named "value" (returns a single value), "indArr" (returns an array of indexes), "keyArr" (returns an array of keys) and "scope" (returns the scope).
 ##### Example
 ```js
