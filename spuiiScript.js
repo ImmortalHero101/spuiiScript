@@ -75,7 +75,7 @@ var l = "local", g = "global";
   // Save to database function
   function _save(type) {
     // Type argument default value if not specified
-    type = (["all" l, g, "dat"].includes(new RegExp(type + ",", "i").test("all, local, global, dat") ? type : 'all');
+    type = new RegExp(type + ",", "i").test("all, local, global, dat") ? type : 'all';
     if (type === 'all') {
       // Set all variables
       spuiiDat['spuiiVar-local'+ RawUserID] = JSON.stringify(spuiiVar.local);
