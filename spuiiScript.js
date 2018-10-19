@@ -559,7 +559,7 @@ function $proto(thisArg, obj) {
   "use strict";
   // Checking for a function or an object as the first argument
 	if (typeof thisArg !== "function" || (typeof thisArg === "object" && (thisArg === null || thisArg instanceof Array))) {
-	  throw "``$proto:`` Expected a function or an object on the first argument, got '" + typeof thisArg !== "function" && typeof thisArg !== "object" ? typeof thisArg : (thisArg === null ? "null" : (thisArg instanceof Array ? "array" : "undefined object")) : typeof thisArg)  + "'.";
+	  throw "``$proto:`` Expected a function or an object on the first argument, got '" + typeof thisArg !== "function" && typeof thisArg !== "object" ? typeof thisArg : (thisArg === null ? "null" : (thisArg instanceof Array ? "array" : "undefined object")) + "'.";
   // Checking for an object as the second argument
 	} else if (typeof obj !== "object" || (obj === null || obj instanceof Array)) {
     throw "``$proto:`` Expected an object on the second argument, got '" + typeof obj !== "object" ? typeof obj : (obj === null ? "null" : (obj instanceof Array ? "array" : "undefined object")) + "'.";
