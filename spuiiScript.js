@@ -578,7 +578,7 @@ function $proto(thisArg, obj) {
 		});
     return thisArg;
 	} else {
-		throw "``$proto``: Cannot add prototypial properties from an object with missing values!";
+		throw "``$proto:`` Cannot add prototypial properties from an object with missing values!";
 	}
 }
 
